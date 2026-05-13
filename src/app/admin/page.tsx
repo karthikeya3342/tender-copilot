@@ -13,7 +13,7 @@ export default async function AdminPage() {
   ] = await Promise.all([
     supabase.from("tenders").select("*", { count: "exact", head: true }).eq("status", "active"),
     supabase.from("msme_profiles").select("*", { count: "exact", head: true }),
-    supabase.from("tenders").select("*").order("created_at", { ascending: false }).limit(10),
+    supabase.from("tenders").select("id, title, domain, estimated_value_lakhs, deadline, startup_exemption, status, nit_number, issuer").order("created_at", { ascending: false }).limit(10),
   ]);
 
   return (

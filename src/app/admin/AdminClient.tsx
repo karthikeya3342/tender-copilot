@@ -10,7 +10,9 @@ import { analyzeTenderPdf } from "@/app/actions/analyzePdf";
 import { Database } from "@/lib/types/database";
 import { cn } from "@/lib/utils";
 
-type Tender = Database["public"]["Tables"]["tenders"]["Row"];
+type Tender = Pick<Database["public"]["Tables"]["tenders"]["Row"],
+  "id" | "title" | "domain" | "estimated_value_lakhs" | "deadline" | "startup_exemption" | "status" | "nit_number" | "issuer"
+>;
 
 interface Props {
   stats: { activeTenders: number; msmesRegistered: number; apiCallsToday: number };
