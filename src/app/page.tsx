@@ -4,6 +4,8 @@ import Link from "next/link";
 import { Zap, Building2, Globe, Shield } from "lucide-react";
 import { getRoleFromUser, getRedirectPath } from "@/lib/auth";
 
+export const dynamic = 'force-dynamic';
+
 export default async function HomePage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();

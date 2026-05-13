@@ -4,6 +4,8 @@ import DashboardClient from "./DashboardClient";
 import { mockTenders, mockMsmeProfile } from "@/lib/mockData";
 import { domainsMatch } from "@/lib/domainMatch";
 
+export const dynamic = 'force-dynamic';
+
 export default async function DashboardPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();

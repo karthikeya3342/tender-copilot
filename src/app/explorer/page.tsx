@@ -2,6 +2,8 @@ import { createClient } from "@/lib/supabase/server";
 import ExplorerClient from "./ExplorerClient";
 import { mockTenders } from "@/lib/mockData";
 
+export const dynamic = 'force-dynamic';
+
 export default async function ExplorerPage() {
   const supabase = await createClient();
 
