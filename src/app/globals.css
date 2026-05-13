@@ -1,26 +1,117 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-clay-bg: #FFF6ED;
+  --color-clay-bg-alt: #F0F7FF;
+  --color-clay-mint: #E8F8F0;
+  --color-clay-lavender: #F3EFFF;
+  --color-clay-peach: #FFF0E8;
+  --color-clay-yellow: #FFFBEA;
+
+  --color-brand-primary: #7C6FF7;
+  --color-brand-secondary: #F97316;
+  --color-brand-green: #22C55E;
+  --color-brand-red: #EF4444;
+  --color-brand-amber: #F59E0B;
+
+  --color-surface: #FFFFFF;
+  --color-surface-raised: #FAFAFA;
+
+  --font-sans: var(--font-nunito);
+
+  --radius-clay: 1.5rem;
+  --radius-clay-lg: 2rem;
+  --radius-clay-xl: 2.5rem;
+
+  --shadow-clay:
+    inset 3px 3px 8px rgba(255, 255, 255, 0.85),
+    inset -2px -2px 6px rgba(0, 0, 0, 0.07),
+    8px 8px 24px rgba(0, 0, 0, 0.10),
+    -2px -2px 12px rgba(255, 255, 255, 0.95);
+
+  --shadow-clay-sm:
+    inset 2px 2px 5px rgba(255, 255, 255, 0.8),
+    inset -1px -1px 4px rgba(0, 0, 0, 0.06),
+    4px 4px 14px rgba(0, 0, 0, 0.08),
+    -1px -1px 8px rgba(255, 255, 255, 0.9);
+
+  --shadow-clay-btn:
+    inset 2px 2px 4px rgba(255, 255, 255, 0.5),
+    inset -1px -1px 3px rgba(0, 0, 0, 0.15),
+    3px 3px 10px rgba(0, 0, 0, 0.15),
+    -1px -1px 6px rgba(255, 255, 255, 0.7);
+
+  --shadow-clay-pressed:
+    inset -2px -2px 5px rgba(255, 255, 255, 0.6),
+    inset 2px 2px 6px rgba(0, 0, 0, 0.15),
+    1px 1px 4px rgba(0, 0, 0, 0.1);
+
+  --shadow-clay-inset:
+    inset 3px 3px 8px rgba(0, 0, 0, 0.08),
+    inset -2px -2px 6px rgba(255, 255, 255, 0.9);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@utility clay-card {
+  background: white;
+  border-radius: var(--radius-clay);
+  box-shadow: var(--shadow-clay);
+  border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@utility clay-card-sm {
+  background: white;
+  border-radius: var(--radius-clay);
+  box-shadow: var(--shadow-clay-sm);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+@utility clay-btn {
+  border-radius: 9999px;
+  box-shadow: var(--shadow-clay-btn);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  transition: all 0.15s ease;
+  font-family: var(--font-sans);
+  font-weight: 700;
+}
+
+@utility clay-inset {
+  border-radius: var(--radius-clay);
+  box-shadow: var(--shadow-clay-inset);
+  background: rgba(0, 0, 0, 0.02);
+}
+
+@utility clay-badge {
+  border-radius: 9999px;
+  box-shadow: var(--shadow-clay-sm);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-clay-bg);
+  color: #2D2D2D;
+  font-family: var(--font-sans);
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(124, 111, 247, 0.3);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(124, 111, 247, 0.5);
 }

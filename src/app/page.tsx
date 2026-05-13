@@ -1,65 +1,81 @@
-import Image from "next/image";
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
+import Link from "next/link";
+import { Zap, Building2, Globe, Shield } from "lucide-react";
+import { getRoleFromUser, getRedirectPath } from "@/lib/auth";
 
-export default function Home() {
+export default async function HomePage() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (user) {
+    const role = getRoleFromUser(user);
+    redirect(getRedirectPath(role));
+  }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="min-h-screen bg-[#FFF6ED] flex flex-col items-center justify-center p-6">
+      <div className="flex items-center gap-3 mb-8">
+        <div className="w-14 h-14 rounded-2xl bg-[#7C6FF7] flex items-center justify-center"
+          style={{ boxShadow: "inset 2px 2px 6px rgba(255,255,255,0.4), 6px 6px 20px rgba(124,111,247,0.4)" }}>
+          <Zap className="w-8 h-8 text-white fill-white" />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div>
+          <h1 className="text-3xl font-black text-gray-800">Tender<span className="text-[#7C6FF7]">Copilot</span></h1>
+          <p className="text-sm text-gray-400 font-semibold">Government Tender Intelligence for MSMEs</p>
         </div>
-      </main>
+      </div>
+
+      <p className="text-center text-gray-500 font-medium max-w-md mb-10 text-base leading-relaxed">
+        AI-powered platform that turns 100-page tender PDFs into simple actionable checklists for small businesses.
+      </p>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 w-full max-w-2xl">
+        <Link href="/signup?role=msme"
+          className="clay-card bg-[#FFF0E8] p-6 flex flex-col gap-4 hover:scale-[1.02] transition-transform duration-200">
+          <div className="flex items-start justify-between">
+            <div className="w-12 h-12 rounded-2xl bg-[#F97316] flex items-center justify-center"
+              style={{ boxShadow: "inset 2px 2px 5px rgba(255,255,255,0.3), 3px 3px 10px rgba(0,0,0,0.1)" }}>
+              <Building2 className="w-6 h-6 text-white" />
+            </div>
+            <span className="clay-badge px-2.5 py-1 bg-[#F97316] text-white text-xs">Recommended</span>
+          </div>
+          <div>
+            <h2 className="font-extrabold text-gray-800">Join as MSME</h2>
+            <p className="text-sm text-gray-500 font-medium mt-1">Get matched tenders, eligibility checks & AI analysis</p>
+          </div>
+        </Link>
+
+        <Link href="/signup?role=explorer"
+          className="clay-card bg-[#F0F7FF] p-6 flex flex-col gap-4 hover:scale-[1.02] transition-transform duration-200">
+          <div className="flex items-start justify-between">
+            <div className="w-12 h-12 rounded-2xl bg-[#7C6FF7] flex items-center justify-center"
+              style={{ boxShadow: "inset 2px 2px 5px rgba(255,255,255,0.3), 3px 3px 10px rgba(0,0,0,0.1)" }}>
+              <Globe className="w-6 h-6 text-white" />
+            </div>
+            <span className="clay-badge px-2.5 py-1 bg-white/60 text-gray-500 text-xs">Free</span>
+          </div>
+          <div>
+            <h2 className="font-extrabold text-gray-800">Browse as Explorer</h2>
+            <p className="text-sm text-gray-500 font-medium mt-1">View all active government tenders publicly</p>
+          </div>
+        </Link>
+
+        <Link href="/login"
+          className="clay-card bg-[#E8F8F0] p-6 flex flex-col gap-4 hover:scale-[1.02] transition-transform duration-200">
+          <div className="flex items-start justify-between">
+            <div className="w-12 h-12 rounded-2xl bg-[#22C55E] flex items-center justify-center"
+              style={{ boxShadow: "inset 2px 2px 5px rgba(255,255,255,0.3), 3px 3px 10px rgba(0,0,0,0.1)" }}>
+              <Shield className="w-6 h-6 text-white" />
+            </div>
+            <span className="clay-badge px-2.5 py-1 bg-white/60 text-gray-500 text-xs">Admin</span>
+          </div>
+          <div>
+            <h2 className="font-extrabold text-gray-800">Sign In</h2>
+            <p className="text-sm text-gray-500 font-medium mt-1">Already registered? Sign in to your account</p>
+          </div>
+        </Link>
+      </div>
     </div>
   );
 }
